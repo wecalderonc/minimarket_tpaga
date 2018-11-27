@@ -1,34 +1,47 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: [:show, :edit, :update, :destroy]
 
+  def pay_request
+
+  end
+
   # GET /purchases
   # GET /purchases.json
   def index
+    @product = Product.find(params[:product_id])
     @purchases = Purchase.all
   end
 
   # GET /purchases/1
   # GET /purchases/1.json
   def show
+    @product = Product.find(params[:product_id])
   end
 
   # GET /purchases/new
   def new
+    @product = Product.find(params[:product_id])
     @purchase = Purchase.new
   end
 
   # GET /purchases/1/edit
   def edit
+    @product = Product.find(params[:product_id])
   end
 
   # POST /purchases
   # POST /purchases.json
   def create
+    @product = Product.find(params[:product_id])
     @purchase = Purchase.new(purchase_params)
+
+    @purchase.quantity = @purchase.quantity
+    @purchase.user = current_user
+    @purchase.product = @product
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
+        format.html { redirect_to product_purchase_path(@product, @purchase), notice: 'Purchase was successfully created.' }
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new }
@@ -69,6 +82,6 @@ class PurchasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_params
-      params.require(:purchase).permit(:user, :product, :quantity)
+      params.require(:purchase).permit(:quantity)
     end
 end

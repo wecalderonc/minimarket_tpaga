@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :purchases
+  resources :products do
+    resources :purchases do
+    end
+  end
   # get 'products/index'
   devise_for :users
   # root to: 'pages#home'
