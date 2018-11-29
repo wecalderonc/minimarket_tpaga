@@ -2,20 +2,27 @@
 
 <p>
   <strong>User:</strong>
-  <%= @purchase.user_id %>
+  <%= current_user.email %>
 </p>
 
 <p>
   <strong>Product:</strong>
-  <%= @purchase.product_id %>
+  <%= @purchase.product.name %>
+  <%= @purchase.product.description %>
 </p>
 
+  <%= link_to 'Pagar en TPAGA-APP', @purchase.url_tpaga %>
 <p>
   <strong>Quantity:</strong>
   <%= @purchase.quantity %>
+
+  <strong>Price:</strong>
+  <%= @purchase.cost %>
+
+  <strong>Status:</strong>
+  <%= @purchase.status %>
 </p>
 
-<%= link_to 'Pagar', @purchase.url_tpaga, method: :post %>
 <%#= link_to 'Pagar', purchases_pay_request_path, method: :post %>
 
 <%#= link_to 'Edit', edit_purchase_path(@purchase) %> |

@@ -41,6 +41,9 @@ class PurchasesController < ApplicationController
     @purchase.user = current_user
     @purchase.product = @product
 
+
+
+
     respond_to do |format|
       if @purchase.save
         format.html { redirect_to product_purchase_path(@product, @purchase), notice: 'Purchase was successfully created.' }

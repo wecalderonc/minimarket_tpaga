@@ -41,7 +41,8 @@ class Purchase < ApplicationRecord
 
     data = JSON.parse(response.read_body)
     url = data["tpaga_payment_url"]
-    self.body = data["data"]["token"]
+    # self.body = data["data"]["token"]
+    self.update(body: data["data"]["token"])
     data
   end
 
