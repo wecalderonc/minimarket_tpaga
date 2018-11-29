@@ -5,8 +5,8 @@
 
 Proceso de Desarrollo:
 
-TIEMPO ESTIMADO: 12 HORAS Y 15 MINUTOS
-TIEMPO REAL (en curso): 9 HORAS y 15 MINUTOS (Divididas en dos días de trabajo) 
+###### TIEMPO ESTIMADO: 12 HORAS Y 15 MINUTOS
+###### TIEMPO REAL (en curso): 9 HORAS y 15 MINUTOS (Divididas en dos días de trabajo) 
 
 - [x] Testeo del API y petición PAY_REQUEST con POSTMAN - Familiarización con guías API tpaga  ====== Estimado 2 horas 
   - Tiempo REAL utilizado = 3 horas
