@@ -1,5 +1,5 @@
 development:
-  HOST: "http://localhost:3000"
+  HOST: "https://localhost:3000"
 
 production:
   HOST: "https://minimarket-tpaga.herokuapp.com/"

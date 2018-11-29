@@ -5,7 +5,7 @@ class Purchase < ApplicationRecord
   belongs_to :product
 
   def pay_request
-    @purchase = Purchase.last
+
     uri = URI.parse("https://stag.wallet.tpaga.co/merchants/api/v1/payment_requests/create")
     request = Net::HTTP::Post.new(uri)
     request.content_type = "application/json"
@@ -41,6 +41,7 @@ class Purchase < ApplicationRecord
 
     data = JSON.parse(response.read_body)
     url = data["tpaga_payment_url"]
+    self.body = data["data"]["token"]
     data
   end
 
@@ -78,5 +79,26 @@ class Purchase < ApplicationRecord
 
   def cost
     self.product.price * self.quantity
+  end
+
+  def status
+    body = self.body
+    uri = URI.parse("https://stag.wallet.tpaga.co/merchants/api/v1/payment_requests/#{body}/info")
+    request = Net::HTTP::Get.new(uri)
+    request.content_type = "application/json"
+    request["Authorization"] = "Basic bWluaWFwcC1nYXRvMzptaW5pYXBwbWEtMTIz"
+    request["Cache-Control"] = "no-cache"
+
+    req_options = {
+      use_ssl: uri.scheme == "https",
+    }
+
+    response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+      http.request(request)
+    end
+
+    data = JSON.parse(response.read_body)
+    status = data["status"]
+
   end
 end
