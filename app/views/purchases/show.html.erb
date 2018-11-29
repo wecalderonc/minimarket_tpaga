@@ -15,7 +15,7 @@
   <%= @purchase.quantity %>
 </p>
 
-<%#= link_to 'Pagar', purchases_pay_request_path, method: :post %>
+<%= link_to 'Pagar', @purchase.url_tpaga, method: :post %>
 <%#= link_to 'Pagar', purchases_pay_request_path, method: :post %>
 
 <%#= link_to 'Edit', edit_purchase_path(@purchase) %> |

@@ -12,7 +12,7 @@ class Purchase < ApplicationRecord
     request["Authorization"] = "Basic bWluaWFwcC1nYXRvMzptaW5pYXBwbWEtMTIz"
     request["Cache-Control"] = "no-cache"
     request.body = JSON.dump({
-      "cost" => "12000",
+      "cost" => cost,
       "purchase_details_url" => return_url,
       "voucher_url" => return_url,
       "idempotency_token" => idempotency_token,
@@ -52,7 +52,9 @@ class Purchase < ApplicationRecord
   def return_url
     product = self.product.id
     purchase = self.id
-    url = "https://localhost:3000/products/#{product}/purchases/#{purchase}"
+    host = ENV["HOST"]
+
+    url = "#{host}/products/#{product}/purchases/#{purchase}"
   end
 
   def order_id
@@ -67,5 +69,14 @@ class Purchase < ApplicationRecord
 
   def ip
     Socket::getaddrinfo(Socket.gethostname,"echo",Socket::AF_INET)[0][3]
+  end
+
+  def url_tpaga
+    data = pay_request
+    data["data"]["tpaga_payment_url"]
+  end
+
+  def cost
+    self.product.price * self.quantity
   end
 end
