@@ -76,50 +76,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def pay_request
-
-      uri = URI.parse("https://stag.wallet.tpaga.co/merchants/api/v1/payment_requests/create")
-      request = Net::HTTP::Post.new(uri)
-      request.content_type = "application/json"
-      request["Authorization"] = "Basic bWluaWFwcC1nYXRvMzptaW5pYXBwbWEtMTIz"
-      request["Cache-Control"] = "no-cache"
-      request.body = JSON.dump({
-        "cost" => "12000",
-        "purchase_details_url" => "https://example.com/compra/348920",
-        "voucher_url" => "https://example.com/comprobante/348920",
-        "idempotency_token" => "ea0c78c5-e95a-47c4-b7f9-25a9015f1d39",
-        "order_id" => "348920",
-        "terminal_id" => "sede_45",
-        "purchase_description" => "Compra en Tienda X",
-        "purchase_items" => [
-          {
-            "name" => "Aceite de girasol",
-            "value" => "13.390"
-          },
-          {
-            "name" => "Arroz X 80g",
-            "value" => "4.190"
-          }
-        ],
-        "user_ip_address" => "61.1.224.56",
-        "expires_at" => "2018-12-05T20:16:57.549653+00:00"
-      })
-
-      req_options = {
-        use_ssl: uri.scheme == "https",
-      }
-
-      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-        http.request(request)
-      end
-
-      data = JSON.parse(response.read_body)
-      #data = JSON.parse (response)
-      url = data["tpaga_payment_url"]
-
-      redirect_to url
-    end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase

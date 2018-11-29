@@ -18,9 +18,9 @@
         <td><%= purchase.user %></td>
         <td><%= purchase.product %></td>
         <td><%= purchase.quantity %></td>
-        <td><%= link_to 'Show', purchase %></td>
-        <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-        <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= link_to 'Show', purchase %></td>
+        <td><%#= link_to 'Edit', edit_purchase_path(purchase) %></td>
+        <td><%#= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Purchase', new_purchase_path %>
+<%#= link_to 'New Purchase', new_purchase_path %>
